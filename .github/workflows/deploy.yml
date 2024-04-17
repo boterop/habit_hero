@@ -41,8 +41,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build
-        run: |
-          flutter build appbundle
+        run: flutter build appbundle
 
       - name: Sign Release
         uses: r0adkll/sign-android-release@v1
