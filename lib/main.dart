@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
+import 'package:habit_hero/widgets/home.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,11 +17,7 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: Light.theme,
       darkTheme: Dark.theme,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      home: const Home(),
     );
   }
 }
