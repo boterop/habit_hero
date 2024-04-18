@@ -4,6 +4,7 @@ import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
 import 'package:habit_hero/screens/home.dart';
 import 'package:habit_hero/widgets/toggle_theme.dart';
+import 'package:habit_hero/widgets/user_button.dart';
 
 void main() async {
   await dotenv.load();
@@ -34,9 +35,8 @@ class MainState extends State<MainApp> {
       darkTheme: Dark.theme,
       home: Scaffold(
           appBar: AppBar(
-            actions: <Widget>[
-              ToggleTheme(setThemeMode: setThemeMode),
-            ],
+            leading: UserButton(),
+            actions: <Widget>[ToggleTheme(setThemeMode: setThemeMode)],
           ),
           body: const Home()),
     );
