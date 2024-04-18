@@ -35,7 +35,7 @@ class MainState extends State<MainApp> {
       darkTheme: Dark.theme,
       home: Scaffold(
           appBar: AppBar(
-            leading: UserButton(),
+            leading: const UserButton(),
             actions: <Widget>[ToggleTheme(setThemeMode: setThemeMode)],
           ),
           body: const Home()),
