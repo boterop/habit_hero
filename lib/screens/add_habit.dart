@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:habit_hero/widgets/glassmorphic_container.dart';
 
 class AddHabit extends StatelessWidget {
   const AddHabit({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const GlassmorphicContainer(
-      alignment: Alignment.topCenter,
-      width: 0.9,
-      height: 0.85,
-      child: Center(
-        child: Text("Habit", style: TextStyle(color: Colors.black, fontSize: 24)),
+    onCancel() => Navigator.pop(context);
+
+    return Scaffold(
+      appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'cancel',
+        onPressed: onCancel,
+        child: const Icon(Icons.cancel_outlined),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: const Center(
+        child: Hero(
+          tag: 'addHabit',
+          child: Text("Habit", style: TextStyle(fontSize: 24)),
+        ),
       ),
     );
   }
