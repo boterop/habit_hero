@@ -27,7 +27,6 @@ class MainState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Habit Hero",
       themeMode: themeMode,
       theme: Light.theme,
       darkTheme: Dark.theme,
