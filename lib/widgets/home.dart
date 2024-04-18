@@ -19,7 +19,6 @@ class Home extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',
-        backgroundColor: Colors.teal,
         onPressed: onAdd,
         child: const Icon(Icons.add),
       ),

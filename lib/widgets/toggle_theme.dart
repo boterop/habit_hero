@@ -14,22 +14,26 @@ class _ToggleState extends State<ToggleTheme> {
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
+    final thumbIconDark = MaterialStateProperty.resolveWith<Icon?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return const Icon(Icons.brightness_5);
+        }
+        return const Icon(Icons.brightness_2);
+      },
+    );
+
     onToggle(ThemeMode themeMode) {
       widget.setThemeMode(themeMode);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          Switch(
-            value: isDarkMode,
-            onChanged: (isOn) {
-              isOn ? onToggle(ThemeMode.dark) : onToggle(ThemeMode.light);
-            },
-          ),
-        ],
-      ),
-      body: Text(isDarkMode.toString()),
+    return Switch(
+      value: isDarkMode,
+      thumbIcon: thumbIconDark,
+      
+      onChanged: (isOn) {
+        isOn ? onToggle(ThemeMode.dark) : onToggle(ThemeMode.light);
+      },
     );
   }
 }

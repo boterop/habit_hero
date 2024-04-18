@@ -31,14 +31,13 @@ class MainState extends State<MainApp> {
       themeMode: themeMode,
       theme: Light.theme,
       darkTheme: Dark.theme,
-      home: Stack(
-        children: [
-          const Home(),
-          ToggleTheme(setThemeMode: (themeMode) {
-            setThemeMode(themeMode);
-          }),
-        ],
-      ),
+      home: Scaffold(
+          appBar: AppBar(
+            actions: <Widget>[
+              ToggleTheme(setThemeMode: setThemeMode),
+            ],
+          ),
+          body: const Home()),
     );
   }
 }
