@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
 import 'package:habit_hero/screens/home.dart';
 import 'package:habit_hero/widgets/toggle_theme.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const MainApp());
 }
 
