@@ -17,9 +17,12 @@ class _ToggleState extends State<ToggleTheme> {
     final thumbIconDark = MaterialStateProperty.resolveWith<Icon?>(
       (Set<MaterialState> states) {
         if (states.contains(MaterialState.selected)) {
-          return const Icon(Icons.brightness_5);
+          return const Icon(
+            Icons.brightness_5,
+            color: Colors.white,
+          );
         }
-        return const Icon(Icons.brightness_2);
+        return const Icon(Icons.brightness_2, color: Colors.black);
       },
     );
 
@@ -30,7 +33,6 @@ class _ToggleState extends State<ToggleTheme> {
     return Switch(
       value: isDarkMode,
       thumbIcon: thumbIconDark,
-      
       onChanged: (isOn) {
         isOn ? onToggle(ThemeMode.dark) : onToggle(ThemeMode.light);
       },
