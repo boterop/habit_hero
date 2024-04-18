@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:habit_hero/screens/add_habit.dart';
 
-class AddHabit extends StatelessWidget {
-  const AddHabit({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     onAdd() {
-      Navigator.pop(context);
+      final addHabitRoute = MaterialPageRoute(
+        builder: (context) => const AddHabit(),
+      );
+      Navigator.push(
+        context,
+        addHabitRoute,
+      );
     }
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add',
-        backgroundColor: Colors.teal,
         onPressed: onAdd,
         child: const Icon(Icons.add),
       ),
       body: const Center(
-        child: Text("Habit"),
+        child: Text("Home"),
       ),
     );
   }

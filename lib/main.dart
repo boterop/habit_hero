@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
-import 'package:habit_hero/widgets/home.dart';
+import 'package:habit_hero/screens/home.dart';
 import 'package:habit_hero/widgets/toggle_theme.dart';
 
 void main() {
