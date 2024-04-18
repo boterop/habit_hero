@@ -22,8 +22,17 @@ class Home extends StatelessWidget {
         onPressed: onAdd,
         child: const Icon(Icons.add),
       ),
-      body: const Center(
-        child: Text("Home"),
+      body: Center(
+        child: Stack(
+          children: [
+            Container(
+              child: const Center(
+                child: Text("DATA"),
+              ),
+            ),
+            const AddHabit(),
+          ],
+        ),
       ),
     );
   }

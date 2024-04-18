@@ -6,21 +6,13 @@ class AddHabit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    onAdd() {
-      Navigator.pop(context);
-    }
-
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          tooltip: 'Add',
-          backgroundColor: Colors.teal,
-          onPressed: onAdd,
-          child: const Icon(Icons.add),
-        ),
-        body: const GlassmorphicContainer(
-          child: Center(
-            child: Text("Habit"),
-          ),
-        ));
+    return const GlassmorphicContainer(
+      alignment: Alignment.topCenter,
+      width: 0.9,
+      height: 0.85,
+      child: Center(
+        child: Text("Habit", style: TextStyle(color: Colors.black, fontSize: 24)),
+      ),
+    );
   }
 }
