@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class APIService {
   final apiUrl = dotenv.env['API_URL'];
   final headers = {
-    'Authorization': 'Bearer ${dotenv.env['API_KEY']}',
+    'Api-Key': 'Bearer ${dotenv.env['API_KEY']}',
     'Content-Type': 'application/json'
   };
 
@@ -38,7 +38,7 @@ class APIService {
 
   Future<String> getHabitsList({required String userToken}) async {
     final uri = Uri.parse('$apiUrl/register');
-    headers['user_token'] = userToken;
+    headers['Authorization'] = userToken;
     final response = await http.get(
       uri,
       headers: headers,
