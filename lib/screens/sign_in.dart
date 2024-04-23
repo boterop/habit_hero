@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_hero/services/api_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -33,8 +34,8 @@ class _SignInState extends State<SignIn> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Email:',
+                decoration: InputDecoration(
+                  hintText: '${AppLocalizations.of(context)!.email}:',
                 ),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -44,9 +45,10 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Password:',
+                decoration: InputDecoration(
+                  hintText: '${AppLocalizations.of(context)!.password}:',
                 ),
+                obscureText: true,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -59,10 +61,15 @@ class _SignInState extends State<SignIn> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      // Process data.
+                      APIService()
+                          .signIn(email: email, password: password)
+                          .then((response) {
+                        debugPrint(response);
+                        debugPrint("$email:$password");
+                      });
                     }
                   },
-                  child: const Text('Sign In'),
+                  child: Text(AppLocalizations.of(context)!.signIn),
                 ),
               ),
             ],
