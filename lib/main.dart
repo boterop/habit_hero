@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:habit_hero/screens/sign_in.dart';
 import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
 import 'package:habit_hero/screens/home.dart';
@@ -35,7 +36,7 @@ class MainState extends State<MainApp> {
       darkTheme: Dark.theme,
       home: Scaffold(
           appBar: AppBar(
-            leading: const UserButton(),
+            leading: const UserButton(route: SignIn()),
             actions: <Widget>[ToggleTheme(setThemeMode: setThemeMode)],
           ),
           body: const Home()),
