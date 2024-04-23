@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/screens/add_habit.dart';
 
 class Home extends StatefulWidget {
@@ -44,7 +45,9 @@ class _HomeState extends State<Home> {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: const Text("ha"),
+      body: Center(
+        child: Text(dotenv.get("API_URL", fallback: "asd")),
+      ),
     );
   }
 }
