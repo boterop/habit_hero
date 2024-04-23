@@ -1,5 +1,8 @@
 {
-  "email": "correo",
-  "password": "clave",
-  "signIn": "ingresar"
+  "email": "Correo",
+  "password": "Clave",
+  "signIn": "Ingresar",
+  "enterValidEmail": "Ingrese un correo valido",
+  "enterValidPassword": "Ingrese una clave valido",
+  "wrongCredentials": "Las credenciales son incorrectas"
 }
