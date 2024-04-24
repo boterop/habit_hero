@@ -4,5 +4,7 @@
   "signIn": "Sign In",
   "enterValidEmail": "Please enter a valid email",
   "enterValidPassword": "Please enter a valid password",
-  "wrongCredentials": "Invalid email or password"
+  "wrongCredentials": "Invalid email or password",
+  "forgotPassword": "Forgot password?",
+  "orContinueWith": "Or continue with"
 }
