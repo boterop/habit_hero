@@ -16,18 +16,15 @@ class APIService {
     return response.statusCode == 200;
   }
 
-  Future<String> signIn(
-      {required String user, required String password}) async {
+  Future<Map> signIn({required String email, required String password}) async {
     final uri = Uri.parse('$apiUrl/sign_in');
     final response = await http.post(
       uri,
       headers: headers,
-      body: {'user': user, 'password': password},
+      body: jsonEncode({'email': email, 'password': password}),
     );
 
-    return response.statusCode == 200
-        ? jsonDecode(response.body)
-        : "${response.statusCode}: ${response.body}";
+    return jsonDecode(response.body);
   }
 
   Future<String> signUp({
