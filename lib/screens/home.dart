@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_hero/screens/add_habit.dart';
 import 'package:habit_hero/services/api_service.dart';
 import 'package:habit_hero/services/user_service.dart';
+import 'package:habit_hero/widgets/habit.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,15 +18,23 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    debugPrint("hodi");
-    debugPrint(UserService.instance.session);
     APIService()
         .getHabitsList(userToken: UserService.instance.session)
-        .then((response) => {
-              debugPrint(response["data"].toString())
-              // response.where((element) => false)
-            })
-        .catchError((error) => {debugPrint(error.toString())});
+        .then((response) {
+      switch (response) {
+        case {"data": List habits}:
+          List<Widget> widgetList = [];
+          for (var habit in habits) {
+            widgetList.add(Habit(habit: habit));
+          }
+          setState(() {
+            habitsList = widgetList;
+          });
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   @override
