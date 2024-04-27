@@ -64,13 +64,20 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          heroTag: 'addHabit',
-          tooltip: 'Add',
-          onPressed: onAdd,
-          child: const Icon(Icons.add),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Column(children: habitsList));
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'addHabit',
+        tooltip: 'Add',
+        onPressed: onAdd,
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(15.0),
+        children: <Widget>[
+          Center(child: Column(children: habitsList)),
+        ],
+      ),
+    );
   }
 }
