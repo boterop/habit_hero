@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/l10n/l10n.dart';
 import 'package:habit_hero/screens/sign_in.dart';
+import 'package:habit_hero/services/storage_service.dart';
+import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
 import 'package:habit_hero/screens/home.dart';
@@ -24,6 +26,14 @@ class MainApp extends StatefulWidget {
 
 class MainState extends State<MainApp> {
   var themeMode = ThemeMode.system;
+  @override
+  void initState() {
+    super.initState();
+    StorageService()
+        .load("token")
+        .then((token) => UserService.instance.updateSession(token))
+        .catchError((error) => UserService.instance.updateSession(""));
+  }
 
   setThemeMode(ThemeMode themeMode) {
     setState(() {

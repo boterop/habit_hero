@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/screens/add_habit.dart';
+import 'package:habit_hero/services/api_service.dart';
+import 'package:habit_hero/services/user_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,6 +12,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Widget> habitsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("hodi");
+    debugPrint(UserService.instance.session);
+    APIService()
+        .getHabitsList(userToken: UserService.instance.session)
+        .then((response) => {
+              debugPrint(response["data"].toString())
+              // response.where((element) => false)
+            })
+        .catchError((error) => {debugPrint(error.toString())});
+  }
+
   @override
   Widget build(BuildContext context) {
     onAdd() {
@@ -38,16 +55,13 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'addHabit',
-        tooltip: 'Add',
-        onPressed: onAdd,
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Center(
-        child: Text(dotenv.get("API_URL", fallback: "asd")),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          heroTag: 'addHabit',
+          tooltip: 'Add',
+          onPressed: onAdd,
+          child: const Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: Column(children: habitsList));
   }
 }

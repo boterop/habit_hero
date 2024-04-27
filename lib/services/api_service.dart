@@ -44,13 +44,11 @@ class APIService {
         : "${response.statusCode}: ${response.body}";
   }
 
-  Future<String> getHabitsList({required String userToken}) async {
-    final uri = Uri.parse('$apiUrl/register');
+  Future<Map> getHabitsList({required String userToken}) async {
+    final uri = Uri.parse('$apiUrl/habits');
     headers['Authorization'] = userToken;
     final response = await http.get(uri, headers: headers);
 
-    return response.statusCode == 200
-        ? jsonDecode(response.body)
-        : "${response.statusCode}: ${response.body}";
+    return jsonDecode(response.body);
   }
 }
