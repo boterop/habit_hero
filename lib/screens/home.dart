@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:habit_hero/screens/add_habit.dart';
 import 'package:habit_hero/services/api_service.dart';
@@ -18,6 +20,10 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    loadHabits();
+  }
+
+  void loadHabits() {
     APIService()
         .getHabitsList(userToken: UserService.instance.session)
         .then((response) {
@@ -32,8 +38,11 @@ class _HomeState extends State<Home> {
           });
           break;
         default:
+          Timer(const Duration(seconds: 15), loadHabits);
           break;
       }
+    }).catchError((error) {
+      Timer(const Duration(seconds: 10), loadHabits);
     });
   }
 
