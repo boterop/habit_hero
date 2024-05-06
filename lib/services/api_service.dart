@@ -12,7 +12,9 @@ class APIService {
 
   Future<bool> health() async {
     final uri = Uri.parse('$apiUrl/health');
-    final response = await http.get(uri, headers: headers);
+    final response = await http.get(uri, headers: headers).timeout(
+        const Duration(seconds: 1),
+        onTimeout: () => http.Response('Error', 408));
     return response.statusCode == 200;
   }
 

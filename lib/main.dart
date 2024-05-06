@@ -14,6 +14,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await dotenv.load();
+  final String token = await StorageService().load("token") ?? "";
+  UserService.instance.updateSession(token);
   runApp(const MainApp());
 }
 
@@ -29,10 +31,6 @@ class MainState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    StorageService()
-        .load("token")
-        .then((token) => UserService.instance.updateSession(token))
-        .catchError((error) => UserService.instance.updateSession(""));
   }
 
   setThemeMode(ThemeMode themeMode) {

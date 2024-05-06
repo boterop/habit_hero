@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_hero/services/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:habit_hero/services/storage_service.dart';
 import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/widgets/center_form_field.dart';
 
@@ -47,7 +46,6 @@ class _SignInState extends State<SignIn> {
             break;
           case {"data": _}:
             String token = response["data"]["token"];
-            StorageService().save(key: "token", content: token);
             UserService.instance.updateSession(token);
             Navigator.pop(context);
             break;

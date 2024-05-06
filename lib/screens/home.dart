@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
           });
           break;
         default:
-          Timer(const Duration(seconds: 15), loadHabits);
+          UserService.instance.updateSession("");
           break;
       }
     }).catchError((error) {

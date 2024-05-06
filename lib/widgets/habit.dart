@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Habit extends StatelessWidget {
   final Map<String, dynamic> habit;
@@ -14,22 +15,25 @@ class Habit extends StatelessWidget {
 
     final bool isAGoodHabit = habit["type"] == "good";
     final String status = habit["status"];
-    final String difficulty = habit["difficulty"];
 
+    String difficulty = habit["difficulty"];
     String description = habit["description"];
     Color? difficultyTextColor;
     Color? difficultyBackgroundColor;
 
     switch (difficulty) {
       case "easy":
+        difficulty = AppLocalizations.of(context)!.easy;
         difficultyTextColor = Colors.brown[900];
         difficultyBackgroundColor = Colors.green[200];
         break;
       case "medium":
+        difficulty = AppLocalizations.of(context)!.medium;
         difficultyTextColor = Colors.blue[900];
         difficultyBackgroundColor = Colors.amber[200];
         break;
       default:
+        difficulty = AppLocalizations.of(context)!.hard;
         difficultyTextColor = Colors.teal[900];
         difficultyBackgroundColor = Colors.red[200];
         break;

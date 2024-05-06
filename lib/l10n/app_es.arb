@@ -2,9 +2,12 @@
   "email": "Correo",
   "password": "Clave",
   "signIn": "Ingresar",
-  "enterValidEmail": "Ingrese un correo valido",
-  "enterValidPassword": "Ingrese una clave valido",
+  "enterValidEmail": "Ingrese un correo válido",
+  "enterValidPassword": "Ingrese una clave válido",
   "wrongCredentials": "Las credenciales son incorrectas",
   "forgotPassword": "Olvidó su clave?",
-  "orContinueWith": "O continua con"
+  "orContinueWith": "O continúa con",
+  "hard": "Difícil",
+  "medium": "Medio",
+  "easy": "Fácil"
 }

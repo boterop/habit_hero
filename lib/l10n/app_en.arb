@@ -6,5 +6,8 @@
   "enterValidPassword": "Please enter a valid password",
   "wrongCredentials": "Invalid email or password",
   "forgotPassword": "Forgot password?",
-  "orContinueWith": "Or continue with"
+  "orContinueWith": "Or continue with",
+  "hard": "Hard",
+  "medium": "Medium",
+  "easy": "Easy"
 }
