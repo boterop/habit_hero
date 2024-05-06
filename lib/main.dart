@@ -14,7 +14,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await dotenv.load();
+  final String id = await StorageService().load("id") ?? "";
   final String token = await StorageService().load("token") ?? "";
+  UserService.instance.updateId(id);
   UserService.instance.updateSession(token);
   runApp(const MainApp());
 }

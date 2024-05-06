@@ -1,19 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:habit_hero/services/user_service.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
   final apiUrl = dotenv.env['API_URL'];
   final headers = {
     'Api-Key': 'Bearer ${dotenv.env['API_KEY']}',
+    'Authentication': 'Bearer ${UserService.instance.session}',
     'Content-Type': 'application/json'
   };
 
   Future<bool> health() async {
     final uri = Uri.parse('$apiUrl/health');
     final response = await http.get(uri, headers: headers).timeout(
-        const Duration(seconds: 1),
+        const Duration(seconds: 3),
         onTimeout: () => http.Response('Error', 408));
     return response.statusCode == 200;
   }
@@ -46,9 +48,15 @@ class APIService {
         : "${response.statusCode}: ${response.body}";
   }
 
-  Future<Map> getHabitsList({required String userToken}) async {
+  Future<Map> getUserHabits() async {
+    final uri = Uri.parse('$apiUrl/users/${UserService.instance.id}/habits');
+    final response = await http.get(uri, headers: headers);
+
+    return jsonDecode(response.body);
+  }
+
+  Future<Map> getHabitsList() async {
     final uri = Uri.parse('$apiUrl/habits');
-    headers['Authorization'] = userToken;
     final response = await http.get(uri, headers: headers);
 
     return jsonDecode(response.body);

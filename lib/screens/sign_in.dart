@@ -6,16 +6,20 @@ import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/widgets/center_form_field.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final Function? callback;
+  const SignIn({super.key, this.callback});
 
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+  late Function callback;
+
   @override
   void initState() {
     super.initState();
+    callback = widget.callback ?? () {};
     APIService()
         .health()
         .then((response) => {if (!response) Navigator.pop(context)})
@@ -44,8 +48,10 @@ class _SignInState extends State<SignIn> {
             passwordController.clear();
             formKey.currentState!.validate();
             break;
-          case {"data": _}:
-            String token = response["data"]["token"];
+          case {"data": Map data}:
+            String id = data["id"];
+            String token = data["token"];
+            UserService.instance.updateId(id);
             UserService.instance.updateSession(token);
             Navigator.pop(context);
             break;

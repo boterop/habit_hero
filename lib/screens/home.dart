@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:habit_hero/screens/add_habit.dart';
 import 'package:habit_hero/services/api_service.dart';
-import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/widgets/habit.dart';
 
 class Home extends StatefulWidget {
@@ -24,9 +23,7 @@ class _HomeState extends State<Home> {
   }
 
   void loadHabits() {
-    APIService()
-        .getHabitsList(userToken: UserService.instance.session)
-        .then((response) {
+    APIService().getUserHabits().then((response) {
       switch (response) {
         case {"data": List habits}:
           List<Widget> widgetList = [];
@@ -38,7 +35,7 @@ class _HomeState extends State<Home> {
           });
           break;
         default:
-          UserService.instance.updateSession("");
+          debugPrint(response.toString());
           break;
       }
     }).catchError((error) {
