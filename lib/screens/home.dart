@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:habit_hero/screens/add_habit.dart';
-import 'package:habit_hero/services/api_service.dart';
-import 'package:habit_hero/widgets/habit.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final List<Widget> habitsList;
+  const Home({super.key, required this.habitsList});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -14,35 +11,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Widget> habitsList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    loadHabits();
-  }
-
-  void loadHabits() {
-    APIService().getUserHabits().then((response) {
-      switch (response) {
-        case {"data": List habits}:
-          List<Widget> widgetList = [];
-          for (var habit in habits) {
-            widgetList.add(Habit(habit: habit));
-          }
-          setState(() {
-            habitsList = widgetList;
-          });
-          break;
-        default:
-          debugPrint(response.toString());
-          break;
-      }
-    }).catchError((error) {
-      Timer(const Duration(seconds: 10), loadHabits);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     onAdd() {
@@ -81,7 +49,7 @@ class _HomeState extends State<Home> {
         shrinkWrap: true,
         padding: const EdgeInsets.all(15.0),
         children: <Widget>[
-          Center(child: Column(children: habitsList)),
+          Center(child: Column(children: widget.habitsList)),
         ],
       ),
     );

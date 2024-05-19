@@ -53,6 +53,7 @@ class _SignInState extends State<SignIn> {
             String token = data["token"];
             UserService.instance.updateId(id);
             UserService.instance.updateSession(token);
+            callback();
             Navigator.pop(context);
             break;
         }

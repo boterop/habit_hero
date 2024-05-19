@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/l10n/l10n.dart';
 import 'package:habit_hero/screens/sign_in.dart';
+import 'package:habit_hero/services/api_service.dart';
 import 'package:habit_hero/services/storage_service.dart';
 import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/themes/dark.dart';
 import 'package:habit_hero/themes/light.dart';
 import 'package:habit_hero/screens/home.dart';
+import 'package:habit_hero/widgets/habit.dart';
 import 'package:habit_hero/widgets/toggle_theme.dart';
 import 'package:habit_hero/widgets/user_button.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,6 +22,7 @@ void main() async {
   final String token = await StorageService().load("token") ?? "";
   UserService.instance.updateId(id);
   UserService.instance.updateSession(token);
+  // StorageService().cleanAll();
   runApp(const MainApp());
 }
 
@@ -30,14 +35,38 @@ class MainApp extends StatefulWidget {
 
 class MainState extends State<MainApp> {
   var themeMode = ThemeMode.system;
+  List<Widget> habitsList = [];
+
   @override
   void initState() {
     super.initState();
+    loadHabits();
   }
 
   setThemeMode(ThemeMode themeMode) {
     setState(() {
       this.themeMode = themeMode;
+    });
+  }
+
+  void loadHabits() {
+    APIService().getUserHabits().then((response) {
+      switch (response) {
+        case {"data": List habits}:
+          List<Widget> widgetList = [];
+          for (var habit in habits) {
+            widgetList.add(Habit(habit: habit));
+          }
+          setState(() {
+            habitsList.addAll(widgetList);
+          });
+          break;
+        default:
+          debugPrint(response.toString());
+          break;
+      }
+    }).catchError((error) {
+      Timer(const Duration(seconds: 10), loadHabits);
     });
   }
 
@@ -56,10 +85,10 @@ class MainState extends State<MainApp> {
       supportedLocales: L10n.locales,
       home: Scaffold(
           appBar: AppBar(
-            leading: const UserButton(route: SignIn()),
+            leading: UserButton(route: SignIn(callback: loadHabits)),
             actions: <Widget>[ToggleTheme(setThemeMode: setThemeMode)],
           ),
-          body: const Home()),
+          body: Home(habitsList: habitsList)),
     );
   }
 }

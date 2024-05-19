@@ -21,7 +21,7 @@ class APIService {
   }
 
   Future<Map> signIn({required String email, required String password}) async {
-    final uri = Uri.parse('$apiUrl/sign_in');
+    final uri = Uri.parse('$apiUrl/sign-in');
     final response = await http.post(
       uri,
       headers: headers,
@@ -33,14 +33,13 @@ class APIService {
 
   Future<String> signUp({
     required String email,
-    required String user,
     required String password,
   }) async {
-    final uri = Uri.parse('$apiUrl/sign_up');
+    final uri = Uri.parse('$apiUrl/sign-up');
     final response = await http.post(
       uri,
       headers: headers,
-      body: {'email': email, 'user': user, 'password': password},
+      body: {'email': email, 'password': password},
     );
 
     return response.statusCode == 201
