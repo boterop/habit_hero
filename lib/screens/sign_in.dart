@@ -2,20 +2,24 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_hero/services/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:habit_hero/services/storage_service.dart';
+import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/widgets/center_form_field.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final Function? callback;
+  const SignIn({super.key, this.callback});
 
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
+  late Function callback;
+
   @override
   void initState() {
     super.initState();
+    callback = widget.callback ?? () {};
     APIService()
         .health()
         .then((response) => {if (!response) Navigator.pop(context)})
@@ -44,9 +48,12 @@ class _SignInState extends State<SignIn> {
             passwordController.clear();
             formKey.currentState!.validate();
             break;
-          case {"data": _}:
-            String token = response["data"]["token"];
-            StorageService.save(key: "token", content: token);
+          case {"data": Map data}:
+            String id = data["id"];
+            String token = data["token"];
+            UserService.instance.updateId(id);
+            UserService.instance.updateSession(token);
+            callback();
             Navigator.pop(context);
             break;
         }
@@ -61,83 +68,92 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(),
       body: Form(
         key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(15.0),
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30),
-              child: Icon(Icons.lock, size: 100),
-            ),
-            CenterFormField(
-                controller: emailController,
-                hint: AppLocalizations.of(context)!.email,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return AppLocalizations.of(context)!.enterValidEmail;
-                  }
-                  return null;
-                }),
-            CenterFormField(
-              controller: passwordController,
-              hint: AppLocalizations.of(context)!.password,
-              obscureText: true,
-              validator: (String? value) {
-                String email = emailController.text;
-                if (email.isNotEmpty && (value == null || value.isEmpty)) {
-                  return AppLocalizations.of(context)!.wrongCredentials;
-                }
-                if (value == null || value.isEmpty) {
-                  return AppLocalizations.of(context)!.enterValidPassword;
-                }
-                return null;
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25.0,
-                vertical: 10,
-              ),
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: RichText(
-                  text: TextSpan(
-                    text: AppLocalizations.of(context)!.forgotPassword,
-                    style: TextStyle(color: Colors.grey[600]),
-                    recognizer: TapGestureRecognizer()..onTap = forgotPassword,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 30),
+                  child: Icon(Icons.lock, size: 100),
+                ),
+                CenterFormField(
+                    controller: emailController,
+                    hint: AppLocalizations.of(context)!.email,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return AppLocalizations.of(context)!.enterValidEmail;
+                      }
+                      return null;
+                    }),
+                CenterFormField(
+                  controller: passwordController,
+                  hint: AppLocalizations.of(context)!.password,
+                  obscureText: true,
+                  validator: (String? value) {
+                    String email = emailController.text;
+                    if (email.isNotEmpty && (value == null || value.isEmpty)) {
+                      return AppLocalizations.of(context)!.wrongCredentials;
+                    }
+                    if (value == null || value.isEmpty) {
+                      return AppLocalizations.of(context)!.enterValidPassword;
+                    }
+                    return null;
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25.0,
+                    vertical: 10,
+                  ),
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: RichText(
+                      text: TextSpan(
+                        text: AppLocalizations.of(context)!.forgotPassword,
+                        style: TextStyle(color: Colors.grey[600]),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = forgotPassword,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 22.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    signIn(emailController, passwordController);
-                  }
-                },
-                child: Text(AppLocalizations.of(context)!.signIn),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50.0),
-              child: Row(
-                children: [
-                  const Expanded(child: Divider(indent: 25.0, endIndent: 5.0)),
-                  Text(AppLocalizations.of(context)!.orContinueWith),
-                  const Expanded(child: Divider(indent: 5.0, endIndent: 25.0)),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.facebook, size: 40),
-                  onPressed: facebookSignIn,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 22.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        signIn(emailController, passwordController);
+                      }
+                    },
+                    child: Text(AppLocalizations.of(context)!.signIn),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 50.0),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                          child: Divider(indent: 25.0, endIndent: 5.0)),
+                      Text(AppLocalizations.of(context)!.orContinueWith),
+                      const Expanded(
+                          child: Divider(indent: 5.0, endIndent: 25.0)),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.facebook, size: 40),
+                      onPressed: facebookSignIn,
+                    )
+                  ],
                 )
               ],
-            )
+            ),
           ],
         ),
       ),

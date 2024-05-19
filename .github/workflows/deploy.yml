@@ -1,14 +1,13 @@
 name: Deploy to Playstore
 
 on:
-  pull_request:
-    branches:
-      - main
-    types: closed
+  workflow_run:
+    workflows: ["Release new version"]
+    types:
+      - completed
 
 jobs:
   deploy:
-    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     env:
       RELEASE_FOLDER: build/app/outputs/bundle/release

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/screens/add_habit.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final List<Widget> habitsList;
+  const Home({super.key, required this.habitsList});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -45,8 +45,12 @@ class _HomeState extends State<Home> {
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Center(
-        child: Text(dotenv.get("API_URL", fallback: "asd")),
+      body: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(15.0),
+        children: <Widget>[
+          Center(child: Column(children: widget.habitsList)),
+        ],
       ),
     );
   }
