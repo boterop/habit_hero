@@ -5,8 +5,7 @@ class ToggleTheme extends StatefulWidget {
   const ToggleTheme({super.key, required this.setThemeMode});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ToggleState createState() => _ToggleState();
+  State<ToggleTheme> createState() => _ToggleState();
 }
 
 class _ToggleState extends State<ToggleTheme> {

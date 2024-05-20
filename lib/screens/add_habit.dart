@@ -8,10 +8,11 @@ List<String> notifyList = ["hourly", "daily", "weekly", "monthly"];
 
 class AddHabit extends StatefulWidget {
   final Function updateHabits;
-  const AddHabit({super.key, required this.updateHabits});
+  final Map<String, dynamic>? habit;
+  const AddHabit({super.key, required this.updateHabits, this.habit});
 
   @override
-  _AddHabitState createState() => _AddHabitState();
+  State<AddHabit> createState() => _AddHabitState();
 }
 
 class _AddHabitState extends State<AddHabit> {
@@ -26,6 +27,19 @@ class _AddHabitState extends State<AddHabit> {
   String notify = notifyList.first;
 
   @override
+  void initState() {
+    super.initState();
+    final Map<String, dynamic>? habit = widget.habit;
+    if (habit != null) {
+      nameController.text = habit["name"];
+      descriptionController.text = habit["description"];
+      endDate = DateTime.parse(habit["end_date"]);
+      isAGoodHabit = habit["type"] == "good";
+      notify = habit["notify"];
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     onCancel() => Navigator.pop(context);
 
@@ -33,6 +47,27 @@ class _AddHabitState extends State<AddHabit> {
       final String name = nameController.text;
       final String description = descriptionController.text;
       final String type = isAGoodHabit ? "good" : "bad";
+
+      if (widget.habit != null) {
+        APIService()
+            .updateHabit(
+                id: widget.habit?["id"],
+                type: type,
+                name: name,
+                description: description,
+                notify: notify,
+                endDate: endDate)
+            .then((response) {
+          debugPrint(response.toString());
+          switch (response) {
+            case {"data": Map _}:
+              widget.updateHabits();
+              onCancel();
+              break;
+          }
+        });
+        return;
+      }
 
       APIService()
           .createHabit(
@@ -77,7 +112,9 @@ class _AddHabitState extends State<AddHabit> {
             onCreate();
           }
         },
-        child: Text(AppLocalizations.of(context)!.create),
+        child: Text(widget.habit != null
+            ? AppLocalizations.of(context)!.update
+            : AppLocalizations.of(context)!.create),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Form(

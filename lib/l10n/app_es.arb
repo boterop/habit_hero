@@ -13,6 +13,7 @@
   "description": "Descripción",
   "endDate": "Fecha de finalización",
   "notify": "Notificar",
+  "update": "Actualizar",
   "enterValid": "Ingrese un {name} correo válido",
   "@enterValid": {
     "placeholders": {
