@@ -14,21 +14,19 @@
   "endDate": "End date",
   "notify": "Notify",
   "update": "Update",
-  "enterValid": "Enter a valid {name}",
+  "enterValid": "Enter a valid {name, select, email{email} password{password} name{name} other{description}}",
   "@enterValid": {
     "placeholders": {
       "name": {
-        "type": "String",
-        "example": "Bob"
+        "type": "String"
       }
     }
   },
-  "makeIt": "Make it {name}",
+  "makeIt": "Make it {name, select, obvious{obvious} attractive{attractive} easy{easy} other{satisfying}}",
   "@makeIt": {
     "placeholders": {
       "name": {
-        "type": "String",
-        "example": "Bob"
+        "type": "String"
       }
     }
   }
