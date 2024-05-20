@@ -3,7 +3,8 @@ import 'package:habit_hero/screens/add_habit.dart';
 
 class Home extends StatefulWidget {
   final List<Widget> habitsList;
-  const Home({super.key, required this.habitsList});
+  final Function updateHabits;
+  const Home({super.key, required this.habitsList, required this.updateHabits});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -17,10 +18,10 @@ class _HomeState extends State<Home> {
       Navigator.push(
         context,
         PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 300),
+          transitionDuration: const Duration(milliseconds: 500),
           pageBuilder: (BuildContext context, Animation<double> animation,
               Animation<double> secondaryAnimation) {
-            return const AddHabit();
+            return AddHabit(updateHabits: widget.updateHabits);
           },
           transitionsBuilder: (BuildContext context,
               Animation<double> animation,

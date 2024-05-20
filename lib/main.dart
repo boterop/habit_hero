@@ -50,6 +50,7 @@ class MainState extends State<MainApp> {
   }
 
   void loadHabits() {
+    habitsList.clear();
     APIService().getUserHabits().then((response) {
       switch (response) {
         case {"data": List habits}:
@@ -88,7 +89,7 @@ class MainState extends State<MainApp> {
             leading: UserButton(route: SignIn(callback: loadHabits)),
             actions: <Widget>[ToggleTheme(setThemeMode: setThemeMode)],
           ),
-          body: Home(habitsList: habitsList)),
+          body: Home(habitsList: habitsList, updateHabits: loadHabits)),
     );
   }
 }

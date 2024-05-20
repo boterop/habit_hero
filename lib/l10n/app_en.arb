@@ -2,12 +2,24 @@
   "email": "Email",
   "password": "Password",
   "signIn": "Sign In",
-  "enterValidEmail": "Please enter a valid email",
-  "enterValidPassword": "Please enter a valid password",
   "wrongCredentials": "Invalid email or password",
   "forgotPassword": "Forgot password?",
   "orContinueWith": "Or continue with",
   "hard": "Hard",
   "medium": "Medium",
-  "easy": "Easy"
+  "easy": "Easy",
+  "create": "Create",
+  "name": "Name",
+  "description": "Description",
+  "endDate": "End date",
+  "notify": "Notify",
+  "enterValid": "Enter a valid {name}",
+  "@enterValid": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  }
 }

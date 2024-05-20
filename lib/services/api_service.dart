@@ -47,6 +47,34 @@ class APIService {
         : "${response.statusCode}: ${response.body}";
   }
 
+  Future<Map> createHabit({
+    required String type,
+    required String name,
+    required String description,
+    required String notify,
+    required DateTime endDate,
+  }) async {
+    final uri = Uri.parse('$apiUrl/habits');
+    final response = await http.post(
+      uri,
+      headers: headers,
+      body: jsonEncode({
+        'habit': {
+          'type': type,
+          'name': name,
+          'description': description,
+          'difficulty': "easy",
+          'notification_date': DateTime.now().toIso8601String(),
+          'notify': notify,
+          'end_date': endDate.toIso8601String(),
+          'user_id': UserService.instance.id,
+        }
+      }),
+    );
+
+    return jsonDecode(response.body);
+  }
+
   Future<Map> getUserHabits() async {
     final uri = Uri.parse('$apiUrl/users/${UserService.instance.id}/habits');
     final response = await http.get(uri, headers: headers);
