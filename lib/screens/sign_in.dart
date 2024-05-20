@@ -84,7 +84,8 @@ class _SignInState extends State<SignIn> {
                     hint: AppLocalizations.of(context)!.email,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return AppLocalizations.of(context)!.enterValidEmail;
+                        return AppLocalizations.of(context)!
+                            .enterValid("email");
                       }
                       return null;
                     }),
@@ -98,7 +99,8 @@ class _SignInState extends State<SignIn> {
                       return AppLocalizations.of(context)!.wrongCredentials;
                     }
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!.enterValidPassword;
+                      return AppLocalizations.of(context)!
+                          .enterValid("password");
                     }
                     return null;
                   },

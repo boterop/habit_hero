@@ -2,12 +2,22 @@
   "email": "Correo",
   "password": "Clave",
   "signIn": "Ingresar",
-  "enterValidEmail": "Ingrese un correo válido",
-  "enterValidPassword": "Ingrese una clave válido",
   "wrongCredentials": "Las credenciales son incorrectas",
   "forgotPassword": "Olvidó su clave?",
   "orContinueWith": "O continúa con",
   "hard": "Difícil",
   "medium": "Medio",
-  "easy": "Fácil"
+  "easy": "Fácil",
+  "create": "Crear",
+  "name": "Nombre",
+  "description": "Descripción",
+  "enterValid": "Ingrese un {name} correo válido",
+  "@enterValid": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  }
 }
