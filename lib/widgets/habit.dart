@@ -69,13 +69,13 @@ class Habit extends StatelessWidget {
     }
 
     return Center(
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            TextButton(
-              onPressed: onShow,
-              child: Stack(
+      child: GestureDetector(
+        onTap: onShow,
+        child: Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Stack(
                 children: <Widget>[
                   ListTile(
                     leading: isAGoodHabit
@@ -99,29 +99,30 @@ class Habit extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 55),
-                  child: Badge(
-                    label: Text(difficulty),
-                    textColor: difficultyTextColor,
-                    backgroundColor: difficultyBackgroundColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+              Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 55),
+                    child: Badge(
+                      label: Text(difficulty),
+                      textColor: difficultyTextColor,
+                      backgroundColor: difficultyBackgroundColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
-                    IconButton(
-                        icon: const Icon(Icons.delete), onPressed: onDelete)
-                  ],
-                )
-              ],
-            )
-          ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      IconButton(
+                          icon: const Icon(Icons.edit), onPressed: onEdit),
+                      IconButton(
+                          icon: const Icon(Icons.delete), onPressed: onDelete)
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
