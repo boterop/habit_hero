@@ -102,6 +102,13 @@ class APIService {
     return jsonDecode(response.body);
   }
 
+  Future<bool> deleteHabit({required String id}) async {
+    final uri = Uri.parse('$apiUrl/habits/$id');
+    final response = await http.delete(uri, headers: headers);
+
+    return response.statusCode == 204;
+  }
+
   Future<Map> getUserHabits() async {
     final uri = Uri.parse('$apiUrl/users/${UserService.instance.id}/habits');
     final response = await http.get(uri, headers: headers);
