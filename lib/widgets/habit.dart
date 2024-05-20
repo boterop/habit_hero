@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_hero/screens/add_habit.dart';
+import 'package:habit_hero/services/api_service.dart';
 
 class Habit extends StatelessWidget {
   final Map<String, dynamic> habit;
@@ -55,6 +56,10 @@ class Habit extends StatelessWidget {
       );
     }
 
+    void onDelete() => APIService()
+        .deleteHabit(id: habit["id"])
+        .then((response) => updateHabits());
+
     return Center(
       child: Card(
         child: Column(
@@ -99,7 +104,8 @@ class Habit extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
-                    IconButton(icon: const Icon(Icons.delete), onPressed: () {})
+                    IconButton(
+                        icon: const Icon(Icons.delete), onPressed: onDelete)
                   ],
                 )
               ],
