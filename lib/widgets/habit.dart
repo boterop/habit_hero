@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:habit_hero/screens/add_habit.dart';
 
 class Habit extends StatelessWidget {
   final Map<String, dynamic> habit;
-  const Habit({super.key, required this.habit});
+  final Function updateHabits;
+  const Habit({super.key, required this.habit, required this.updateHabits});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,15 @@ class Habit extends StatelessWidget {
     if (description.length > descriptionLength) {
       String shortedDesc = description.substring(0, descriptionLength);
       description = "$shortedDesc...";
+    }
+
+    void onEdit() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                AddHabit(habit: habit, updateHabits: updateHabits)),
+      );
     }
 
     return Center(
@@ -87,7 +98,7 @@ class Habit extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    IconButton(icon: const Icon(Icons.edit), onPressed: () {}),
+                    IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
                     IconButton(icon: const Icon(Icons.delete), onPressed: () {})
                   ],
                 )

@@ -56,7 +56,7 @@ class MainState extends State<MainApp> {
         case {"data": List habits}:
           List<Widget> widgetList = [];
           for (var habit in habits) {
-            widgetList.add(Habit(habit: habit));
+            widgetList.add(Habit(habit: habit, updateHabits: loadHabits));
           }
           setState(() {
             habitsList.addAll(widgetList);

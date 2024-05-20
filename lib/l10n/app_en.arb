@@ -13,6 +13,7 @@
   "description": "Description",
   "endDate": "End date",
   "notify": "Notify",
+  "update": "Update",
   "enterValid": "Enter a valid {name}",
   "@enterValid": {
     "placeholders": {
