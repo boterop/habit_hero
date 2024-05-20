@@ -82,6 +82,7 @@ class _SignInState extends State<SignIn> {
                 CenterFormField(
                     controller: emailController,
                     hint: AppLocalizations.of(context)!.email,
+                    padding: 25.0,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return AppLocalizations.of(context)!
@@ -92,6 +93,7 @@ class _SignInState extends State<SignIn> {
                 CenterFormField(
                   controller: passwordController,
                   hint: AppLocalizations.of(context)!.password,
+                  padding: 25.0,
                   obscureText: true,
                   validator: (String? value) {
                     String email = emailController.text;

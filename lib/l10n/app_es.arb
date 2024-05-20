@@ -11,6 +11,8 @@
   "create": "Crear",
   "name": "Nombre",
   "description": "Descripción",
+  "endDate": "Fecha de finalización",
+  "notify": "Notificar",
   "enterValid": "Ingrese un {name} correo válido",
   "@enterValid": {
     "placeholders": {

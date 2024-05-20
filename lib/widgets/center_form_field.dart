@@ -8,6 +8,7 @@ class CenterFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final int minLines;
   final int maxLines;
+  final double padding;
   final InputBorder? border;
   final Widget? prefixIcon;
 
@@ -20,13 +21,14 @@ class CenterFormField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.minLines = 1,
     this.maxLines = 1,
+    this.padding = 0,
     this.border,
     this.prefixIcon,
   });
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        padding: EdgeInsets.symmetric(horizontal: padding),
         child: TextFormField(
           controller: controller,
           decoration: InputDecoration(

@@ -11,6 +11,8 @@
   "create": "Create",
   "name": "Name",
   "description": "Description",
+  "endDate": "End date",
+  "notify": "Notify",
   "enterValid": "Enter a valid {name}",
   "@enterValid": {
     "placeholders": {
