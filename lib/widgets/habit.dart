@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_hero/screens/add_habit.dart';
+import 'package:habit_hero/screens/show_habit.dart';
 import 'package:habit_hero/services/api_service.dart';
 
 class Habit extends StatelessWidget {
@@ -60,34 +61,44 @@ class Habit extends StatelessWidget {
         .deleteHabit(id: habit["id"])
         .then((response) => updateHabits());
 
+    void onShow() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ShowHabit(habit: habit)),
+      );
+    }
+
     return Center(
       child: Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                ListTile(
-                  leading: isAGoodHabit
-                      ? const Icon(Icons.favorite, color: Colors.red)
-                      : const Icon(Icons.heart_broken, color: Colors.grey),
-                  title: Text(habit["name"]),
-                  subtitle: Text(description),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      status == "done"
-                          ? checkIcon
-                          : status == "in_progress"
-                              ? wipIcon
-                              : canceledIcon
-                    ],
+            TextButton(
+              onPressed: onShow,
+              child: Stack(
+                children: <Widget>[
+                  ListTile(
+                    leading: isAGoodHabit
+                        ? const Icon(Icons.favorite, color: Colors.red)
+                        : const Icon(Icons.heart_broken, color: Colors.grey),
+                    title: Text(habit["name"]),
+                    subtitle: Text(description),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        status == "done"
+                            ? checkIcon
+                            : status == "in_progress"
+                                ? wipIcon
+                                : canceledIcon
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Stack(
               children: <Widget>[

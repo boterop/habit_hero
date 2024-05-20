@@ -22,5 +22,14 @@
         "example": "Bob"
       }
     }
+  },
+  "makeIt": "Make it {name}",
+  "@makeIt": {
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
   }
 }

@@ -49,15 +49,14 @@ class _AddHabitState extends State<AddHabit> {
       final String type = isAGoodHabit ? "good" : "bad";
 
       if (widget.habit != null) {
-        APIService()
-            .updateHabit(
-                id: widget.habit?["id"],
-                type: type,
-                name: name,
-                description: description,
-                notify: notify,
-                endDate: endDate)
-            .then((response) {
+        APIService().updateHabit({
+          "id": widget.habit?["id"],
+          "type": type,
+          "name": name,
+          "description": description,
+          "notify": notify,
+          "endDate": endDate
+        }).then((response) {
           debugPrint(response.toString());
           switch (response) {
             case {"data": Map _}:
