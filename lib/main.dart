@@ -30,7 +30,7 @@ class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
-  State<MainApp> createState() => MainState();
+  MainState createState() => MainState();
 }
 
 class MainState extends State<MainApp> {
