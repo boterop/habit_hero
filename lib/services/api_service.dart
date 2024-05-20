@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:habit_hero/services/user_service.dart';
@@ -9,6 +10,7 @@ class APIService {
   final headers = {
     'Api-Key': 'Bearer ${dotenv.env['API_KEY']}',
     'Authentication': 'Bearer ${UserService.instance.session}',
+    'Language': Platform.localeName,
     'Content-Type': 'application/json'
   };
 
