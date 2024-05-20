@@ -50,6 +50,7 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(15.0),
         children: <Widget>[
           Center(child: Column(children: widget.habitsList)),
+          const SizedBox(height: 90),
         ],
       ),
     );
