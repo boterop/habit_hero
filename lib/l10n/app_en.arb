@@ -14,6 +14,8 @@
   "endDate": "End date",
   "notify": "Notify",
   "update": "Update",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
   "enterValid": "Enter a valid {name, select, email{email} password{password} name{name} other{description}}",
   "@enterValid": {
     "placeholders": {
@@ -24,6 +26,14 @@
   },
   "makeIt": "Make it {name, select, obvious{obvious} attractive{attractive} easy{easy} other{satisfying}}",
   "@makeIt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDelete": "Are you sure you want to delete this?\n({name})",
+  "@confirmDelete": {
     "placeholders": {
       "name": {
         "type": "String"

@@ -28,6 +28,19 @@ class GeneralTheme {
   _getFloatingTheme() =>
       FloatingActionButtonThemeData(backgroundColor: primaryColor);
 
+  _getTextButtonTheme() => TextButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return Colors.grey;
+              }
+              return primaryColor;
+            },
+          ),
+        ),
+      );
+
   ThemeData getData() => ThemeData(
         primaryColor: background,
         switchTheme: SwitchThemeData(
@@ -36,6 +49,7 @@ class GeneralTheme {
           trackOutlineColor: _switchColors(),
         ),
         floatingActionButtonTheme: _getFloatingTheme(),
+        textButtonTheme: _getTextButtonTheme(),
         brightness: brightness,
       );
 }

@@ -14,6 +14,8 @@
   "endDate": "Fecha de finalización",
   "notify": "Notificar",
   "update": "Actualizar",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
   "enterValid": "Ingrese {name, select, email{un correo válido} password{una clave válida} name{un nombre válido} other{una descripción válida}}",
   "@enterValid": {
     "placeholders": {
@@ -24,6 +26,14 @@
   },
   "makeIt": "Hazlo {name, select, obvious{obvio} attractive{atractivo} easy{fácil} other{satisfactorio}}",
   "@makeIt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDelete": "¿Está seguro de que desea eliminar esto?\n({name})",
+  "@confirmDelete": {
     "placeholders": {
       "name": {
         "type": "String"
