@@ -21,4 +21,9 @@ class UserService {
     _id = id;
     StorageService().save(key: "id", content: id);
   }
+
+  void updateUser(String id, String token) {
+    updateId(id);
+    updateSession(token);
+  }
 }

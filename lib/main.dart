@@ -20,8 +20,7 @@ void main() async {
   await dotenv.load();
   final String id = await StorageService().load("id") ?? "";
   final String token = await StorageService().load("token") ?? "";
-  UserService.instance.updateId(id);
-  UserService.instance.updateSession(token);
+  UserService.instance.updateUser(id, token);
   // StorageService().cleanAll();
   runApp(const MainApp());
 }
@@ -50,7 +49,9 @@ class MainState extends State<MainApp> {
   }
 
   void loadHabits() {
-    habitsList.clear();
+    setState(() {
+      habitsList.clear();
+    });
     APIService().getUserHabits().then((response) {
       switch (response) {
         case {"data": List habits}:
@@ -86,7 +87,7 @@ class MainState extends State<MainApp> {
       supportedLocales: L10n.locales,
       home: Scaffold(
           appBar: AppBar(
-            leading: UserButton(route: SignIn(callback: loadHabits)),
+            leading: UserButton(route: const SignIn(), callback: loadHabits),
             actions: <Widget>[ToggleTheme(setThemeMode: setThemeMode)],
           ),
           body: Home(habitsList: habitsList, updateHabits: loadHabits)),
