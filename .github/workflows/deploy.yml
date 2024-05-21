@@ -29,6 +29,11 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.19.6
+
       - name: Install dependency
         run: flutter packages get
 
