@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_hero/screens/add_habit.dart';
 import 'package:habit_hero/screens/show_habit.dart';
 import 'package:habit_hero/services/api_service.dart';
+import 'package:habit_hero/widgets/appear_animation.dart';
 
 class Habit extends StatelessWidget {
   final Map<String, dynamic> habit;
@@ -71,57 +72,59 @@ class Habit extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: onShow,
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  ListTile(
-                    leading: isAGoodHabit
-                        ? const Icon(Icons.favorite, color: Colors.red)
-                        : const Icon(Icons.heart_broken, color: Colors.grey),
-                    title: Text(habit["name"]),
-                    subtitle: Text(description),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6),
-                    child: Row(
+        child: AppearAnimation(
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Stack(
+                  children: <Widget>[
+                    ListTile(
+                      leading: isAGoodHabit
+                          ? const Icon(Icons.favorite, color: Colors.red)
+                          : const Icon(Icons.heart_broken, color: Colors.grey),
+                      title: Text(habit["name"]),
+                      subtitle: Text(description),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          status == "done"
+                              ? checkIcon
+                              : status == "in_progress"
+                                  ? wipIcon
+                                  : canceledIcon
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 55),
+                      child: Badge(
+                        label: Text(difficulty),
+                        textColor: difficultyTextColor,
+                        backgroundColor: difficultyBackgroundColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                      ),
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        status == "done"
-                            ? checkIcon
-                            : status == "in_progress"
-                                ? wipIcon
-                                : canceledIcon
+                        IconButton(
+                            icon: const Icon(Icons.edit), onPressed: onEdit),
+                        IconButton(
+                            icon: const Icon(Icons.delete), onPressed: onDelete)
                       ],
-                    ),
-                  ),
-                ],
-              ),
-              Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 55),
-                    child: Badge(
-                      label: Text(difficulty),
-                      textColor: difficultyTextColor,
-                      backgroundColor: difficultyBackgroundColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      IconButton(
-                          icon: const Icon(Icons.edit), onPressed: onEdit),
-                      IconButton(
-                          icon: const Icon(Icons.delete), onPressed: onDelete)
-                    ],
-                  )
-                ],
-              )
-            ],
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
