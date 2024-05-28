@@ -2,6 +2,7 @@
   "email": "Correo",
   "password": "Clave",
   "signIn": "Ingresar",
+  "signUp": "Registrarse",
   "wrongCredentials": "Las credenciales son incorrectas",
   "forgotPassword": "Olvidó su clave?",
   "orContinueWith": "O continúa con",
@@ -16,6 +17,7 @@
   "update": "Actualizar",
   "cancel": "Cancelar",
   "confirm": "Confirmar",
+  "signInToContinue": "Inicia sesión para continuar",
   "enterValid": "Ingrese {name, select, email{un correo válido} password{una clave válida} name{un nombre válido} other{una descripción válida}}",
   "@enterValid": {
     "placeholders": {

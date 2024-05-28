@@ -57,7 +57,6 @@ class _AddHabitState extends State<AddHabit> {
           "notify": notify,
           "endDate": endDate
         }).then((response) {
-          debugPrint(response.toString());
           switch (response) {
             case {"data": Map _}:
               widget.updateHabits();

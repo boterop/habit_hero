@@ -2,6 +2,7 @@
   "email": "Email",
   "password": "Password",
   "signIn": "Sign In",
+  "signUp": "Sign Up",
   "wrongCredentials": "Invalid email or password",
   "forgotPassword": "Forgot password?",
   "orContinueWith": "Or continue with",
@@ -16,6 +17,7 @@
   "update": "Update",
   "cancel": "Cancel",
   "confirm": "Confirm",
+  "signInToContinue": "Sign in to continue",
   "enterValid": "Enter a valid {name, select, email{email} password{password} name{name} other{description}}",
   "@enterValid": {
     "placeholders": {

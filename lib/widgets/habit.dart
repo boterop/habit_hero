@@ -4,7 +4,7 @@ import 'package:habit_hero/screens/add_habit.dart';
 import 'package:habit_hero/screens/show_habit.dart';
 import 'package:habit_hero/services/api_service.dart';
 import 'package:habit_hero/widgets/appear_animation.dart';
-import 'package:habit_hero/widgets/confirm_dialog.dart';
+import 'package:habit_hero/widgets/confirm_delete_dialog.dart';
 
 class Habit extends StatelessWidget {
   final Map<String, dynamic> habit;
@@ -66,7 +66,7 @@ class Habit extends StatelessWidget {
     void onDeleteDialog() => showDialog<String>(
           context: context,
           builder: (BuildContext context) =>
-              ConfirmDialog(name: habit["name"], onConfirm: onDelete),
+              ConfirmDeleteDialog(name: habit["name"], onConfirm: onDelete),
         );
 
     void onShow() {

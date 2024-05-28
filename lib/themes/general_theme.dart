@@ -28,21 +28,24 @@ class GeneralTheme {
   _getFloatingTheme() =>
       FloatingActionButtonThemeData(backgroundColor: primaryColor);
 
-  _getTextButtonTheme() => TextButtonThemeData(
-        style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.disabled)) {
-                return Colors.grey;
-              }
-              return primaryColor;
-            },
-          ),
+  _buttonStyle() => ButtonStyle(
+        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return Colors.grey;
+            }
+            return primaryColor;
+          },
         ),
       );
 
+  _getTextButtonTheme() => TextButtonThemeData(style: _buttonStyle());
+
+  _getElevatedButtonTheme() => ElevatedButtonThemeData(style: _buttonStyle());
+
   ThemeData getData() => ThemeData(
         primaryColor: background,
+        brightness: brightness,
         switchTheme: SwitchThemeData(
           thumbColor: _switchColors(),
           trackColor: _switchColors(dark: false),
@@ -50,6 +53,6 @@ class GeneralTheme {
         ),
         floatingActionButtonTheme: _getFloatingTheme(),
         textButtonTheme: _getTextButtonTheme(),
-        brightness: brightness,
+        elevatedButtonTheme: _getElevatedButtonTheme(),
       );
 }

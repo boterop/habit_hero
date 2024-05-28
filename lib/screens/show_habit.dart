@@ -24,8 +24,6 @@ class _ShowHabitState extends State<ShowHabit> {
     List<int> imageBytes = await image.readAsBytes();
     String encodedImage = base64.encode(imageBytes);
 
-    // TODO: delete image from device
-
     Map result = await APIService()
         .uploadImage(id: widget.habit["id"], image: encodedImage);
 

@@ -54,6 +54,10 @@ class _SignInState extends State<SignIn> {
       });
     }
 
+    signUp() {
+      throw UnimplementedError();
+    }
+
     facebookSignIn() {
       throw UnimplementedError();
     }
@@ -120,36 +124,50 @@ class _SignInState extends State<SignIn> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 22.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        signIn(emailController, passwordController);
-                      }
-                    },
-                    child: Text(AppLocalizations.of(context)!.signIn),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50.0),
-                  child: Row(
+                  child: Column(
                     children: [
-                      const Expanded(
-                          child: Divider(indent: 25.0, endIndent: 5.0)),
-                      Text(AppLocalizations.of(context)!.orContinueWith),
-                      const Expanded(
-                          child: Divider(indent: 5.0, endIndent: 25.0)),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            signIn(emailController, passwordController);
+                          }
+                        },
+                        child: Text(AppLocalizations.of(context)!.signIn),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          signUp();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ),
+                        child: Text(AppLocalizations.of(context)!.signUp),
+                      ),
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.facebook, size: 40),
-                      onPressed: facebookSignIn,
-                    )
-                  ],
-                )
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(vertical: 50.0),
+                //   child: Row(
+                //     children: [
+                //       const Expanded(
+                //           child: Divider(indent: 25.0, endIndent: 5.0)),
+                //       Text(AppLocalizations.of(context)!.orContinueWith),
+                //       const Expanded(
+                //           child: Divider(indent: 5.0, endIndent: 25.0)),
+                //     ],
+                //   ),
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     IconButton(
+                //       icon: const Icon(Icons.facebook, size: 40),
+                //       onPressed: facebookSignIn,
+                //     )
+                //   ],
+                // )
               ],
             ),
           ],
