@@ -35,7 +35,7 @@ class APIService {
     return jsonDecode(response.body);
   }
 
-  Future<String> signUp({
+  Future<Map> signUp({
     required String email,
     required String password,
   }) async {
@@ -43,12 +43,15 @@ class APIService {
     final response = await http.post(
       uri,
       headers: _headers,
-      body: {'email': email, 'password': password},
+      body: jsonEncode({
+        "user": {
+          'email': email,
+          'password': password,
+        }
+      }),
     );
 
-    return response.statusCode == 201
-        ? jsonDecode(response.body)
-        : "${response.statusCode}: ${response.body}";
+    return jsonDecode(response.body);
   }
 
   Future<Map> createHabit({
