@@ -129,27 +129,27 @@ class _SignInState extends State<SignIn> {
                     child: Text(AppLocalizations.of(context)!.signIn),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 50.0),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                          child: Divider(indent: 25.0, endIndent: 5.0)),
-                      Text(AppLocalizations.of(context)!.orContinueWith),
-                      const Expanded(
-                          child: Divider(indent: 5.0, endIndent: 25.0)),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.facebook, size: 40),
-                      onPressed: facebookSignIn,
-                    )
-                  ],
-                )
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(vertical: 50.0),
+                //   child: Row(
+                //     children: [
+                //       const Expanded(
+                //           child: Divider(indent: 25.0, endIndent: 5.0)),
+                //       Text(AppLocalizations.of(context)!.orContinueWith),
+                //       const Expanded(
+                //           child: Divider(indent: 5.0, endIndent: 25.0)),
+                //     ],
+                //   ),
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     IconButton(
+                //       icon: const Icon(Icons.facebook, size: 40),
+                //       onPressed: facebookSignIn,
+                //     )
+                //   ],
+                // )
               ],
             ),
           ],
