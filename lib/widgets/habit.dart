@@ -66,7 +66,7 @@ class Habit extends StatelessWidget {
     void onDeleteDialog() => showDialog<String>(
           context: context,
           builder: (BuildContext context) =>
-              ConfirmDialog(name: habit["name"], onDelete: onDelete),
+              ConfirmDialog(name: habit["name"], onConfirm: onDelete),
         );
 
     void onShow() {

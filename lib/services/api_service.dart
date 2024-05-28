@@ -7,16 +7,18 @@ import 'package:http/http.dart' as http;
 
 class APIService {
   final apiUrl = dotenv.env['API_URL'];
-  final headers = {
+  final _headers = {
     'Api-Key': 'Bearer ${dotenv.env['API_KEY']}',
     'Authentication': 'Bearer ${UserService.instance.session}',
     'Language': Platform.localeName,
     'Content-Type': 'application/json'
   };
 
+  Map<String, String> get headers => _headers;
+
   Future<bool> health() async {
     final uri = Uri.parse('$apiUrl/health');
-    final response = await http.get(uri, headers: headers).timeout(
+    final response = await http.get(uri, headers: _headers).timeout(
         const Duration(seconds: 3),
         onTimeout: () => http.Response('Error', 408));
     return response.statusCode == 200;
@@ -26,7 +28,7 @@ class APIService {
     final uri = Uri.parse('$apiUrl/sign-in');
     final response = await http.post(
       uri,
-      headers: headers,
+      headers: _headers,
       body: jsonEncode({'email': email, 'password': password}),
     );
 
@@ -40,7 +42,7 @@ class APIService {
     final uri = Uri.parse('$apiUrl/sign-up');
     final response = await http.post(
       uri,
-      headers: headers,
+      headers: _headers,
       body: {'email': email, 'password': password},
     );
 
@@ -59,7 +61,7 @@ class APIService {
     final uri = Uri.parse('$apiUrl/habits');
     final response = await http.post(
       uri,
-      headers: headers,
+      headers: _headers,
       body: jsonEncode({
         'habit': {
           'type': type,
@@ -85,7 +87,7 @@ class APIService {
     final uri = Uri.parse('$apiUrl/habits/${opts["id"]}');
     final response = await http.put(
       uri,
-      headers: headers,
+      headers: _headers,
       body: jsonEncode({'habit': opts}),
     );
 
@@ -94,21 +96,32 @@ class APIService {
 
   Future<bool> deleteHabit({required String id}) async {
     final uri = Uri.parse('$apiUrl/habits/$id');
-    final response = await http.delete(uri, headers: headers);
+    final response = await http.delete(uri, headers: _headers);
 
     return response.statusCode == 204;
   }
 
   Future<Map> getUserHabits() async {
     final uri = Uri.parse('$apiUrl/users/${UserService.instance.id}/habits');
-    final response = await http.get(uri, headers: headers);
+    final response = await http.get(uri, headers: _headers);
 
     return jsonDecode(response.body);
   }
 
   Future<Map> getHabitsList() async {
     final uri = Uri.parse('$apiUrl/habits');
-    final response = await http.get(uri, headers: headers);
+    final response = await http.get(uri, headers: _headers);
+
+    return jsonDecode(response.body);
+  }
+
+  Future<Map> uploadImage({required String id, required String image}) async {
+    final uri = Uri.parse('$apiUrl/habits/$id/upload-image');
+    final response = await http.post(
+      uri,
+      headers: _headers,
+      body: jsonEncode({'base64_image': image}),
+    );
 
     return jsonDecode(response.body);
   }

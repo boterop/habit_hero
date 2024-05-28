@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_hero/services/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:habit_hero/widgets/camera_screen.dart';
+import 'package:habit_hero/widgets/square_image.dart';
 
 List<String> notifyList = ["hourly", "daily", "weekly", "monthly"];
 
@@ -14,6 +19,22 @@ class ShowHabit extends StatefulWidget {
 
 class _ShowHabitState extends State<ShowHabit> {
   String image = "";
+
+  void onPictureTaken(XFile image) async {
+    List<int> imageBytes = await image.readAsBytes();
+    String encodedImage = base64.encode(imageBytes);
+
+    // TODO: delete image from device
+
+    Map result = await APIService()
+        .uploadImage(id: widget.habit["id"], image: encodedImage);
+
+    String imageUrl =
+        result["data"]["done_image"] + "?" + DateTime.now().toString();
+    setState(() {
+      this.image = imageUrl;
+    });
+  }
 
   @override
   void initState() {
@@ -29,20 +50,11 @@ class _ShowHabitState extends State<ShowHabit> {
     final isAGoodHabit = habit["type"] == "good";
 
     void onCam() {
-      APIService().updateHabit({
-        "id": habit["id"],
-        "done_image": "https://www.boterop.io/avatar.jpg",
-        "done_today": true
-      }).then((response) {
-        switch (response) {
-          case {"data": Map habit}:
-            setState(() {
-              image = habit["done_image"];
-            });
-            // Congrats the user and go back
-            break;
-        }
-      });
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) =>
+            CameraScreen(onPictureTaken: onPictureTaken),
+      );
     }
 
     Widget head(String text) {
@@ -77,16 +89,6 @@ class _ShowHabitState extends State<ShowHabit> {
       );
     }
 
-    Widget createImage(String image) {
-      if (image.isEmpty) return Container();
-      return Padding(
-          padding: const EdgeInsets.all(10),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Image.network(image, fit: BoxFit.cover),
-          ));
-    }
-
     Widget createStep(String step) {
       if (step.isEmpty) return Container();
       return Column(
@@ -112,7 +114,7 @@ class _ShowHabitState extends State<ShowHabit> {
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
-          createImage(image),
+          SquareImage(imageUrl: image, headers: APIService().headers),
           createStep("obvious"),
           createStep("attractive"),
           createStep("easy"),
