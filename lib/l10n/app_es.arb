@@ -1,6 +1,9 @@
 {
   "email": "Correo",
+  "emailTaken": "Correo ya en uso",
   "password": "Clave",
+  "confirmPassword": "Confirmar Clave",
+  "passwordsDoNotMatch": "Las contraseñas no coinciden",
   "signIn": "Ingresar",
   "signUp": "Registrarse",
   "wrongCredentials": "Las credenciales son incorrectas",

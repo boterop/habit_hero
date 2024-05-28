@@ -1,19 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:habit_hero/screens/sign_up.dart';
 import 'package:habit_hero/services/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:habit_hero/services/user_service.dart';
 import 'package:habit_hero/widgets/center_form_field.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
@@ -28,41 +27,38 @@ class _SignInState extends State<SignIn> {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
+
+    String error = "";
 
     forgotPassword() {
       throw UnimplementedError();
     }
 
-    signIn(
-      TextEditingController emailController,
-      TextEditingController passwordController,
-    ) {
+    signUp() {
+      error = "";
       String email = emailController.text;
       String password = passwordController.text;
-      APIService().signIn(email: email, password: password).then((response) {
+      APIService().signUp(email: email, password: password).then((response) {
+        debugPrint(response.toString());
         switch (response) {
-          case {"errors": "Unauthorized"}:
-            passwordController.clear();
+          case {"errors": {"email": ["has already been taken"]}}:
+            error = AppLocalizations.of(context)!.emailTaken;
             formKey.currentState!.validate();
             break;
           case {"data": Map data}:
             String id = data["id"];
             String token = data["token"];
             UserService.instance.updateUser(id, token);
-            Navigator.pop(context, true);
+            Navigator.popUntil(context, (route) => route.isFirst);
             break;
         }
       });
     }
 
-    signUp() {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const SignUp()));
-    }
-
-    facebookSignIn() {
-      throw UnimplementedError();
-    }
+    // facebookSignUp() {
+    //   throw UnimplementedError();
+    // }
 
     return Scaffold(
       appBar: AppBar(),
@@ -80,16 +76,19 @@ class _SignInState extends State<SignIn> {
                   child: Icon(Icons.lock, size: 100),
                 ),
                 CenterFormField(
-                    controller: emailController,
-                    hint: AppLocalizations.of(context)!.email,
-                    padding: 25.0,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return AppLocalizations.of(context)!
-                            .enterValid("email");
-                      }
-                      return null;
-                    }),
+                  controller: emailController,
+                  hint: AppLocalizations.of(context)!.email,
+                  padding: 25.0,
+                  validator: (String? value) {
+                    if (error.isNotEmpty) {
+                      return error;
+                    }
+                    if (value == null || value.isEmpty) {
+                      return AppLocalizations.of(context)!.enterValid("email");
+                    }
+                    return null;
+                  },
+                ),
                 CenterFormField(
                   controller: passwordController,
                   hint: AppLocalizations.of(context)!.password,
@@ -103,6 +102,21 @@ class _SignInState extends State<SignIn> {
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!
                           .enterValid("password");
+                    }
+                    return null;
+                  },
+                ),
+                CenterFormField(
+                  controller: confirmPasswordController,
+                  hint: AppLocalizations.of(context)!.confirmPassword,
+                  padding: 25.0,
+                  obscureText: true,
+                  validator: (String? value) {
+                    String password = passwordController.text;
+                    String confirmPassword = confirmPasswordController.text;
+
+                    if (password != confirmPassword) {
+                      return AppLocalizations.of(context)!.passwordsDoNotMatch;
                     }
                     return null;
                   },
@@ -131,19 +145,9 @@ class _SignInState extends State<SignIn> {
                       ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            signIn(emailController, passwordController);
+                            signUp();
                           }
                         },
-                        child: Text(AppLocalizations.of(context)!.signIn),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          signUp();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                        ),
                         child: Text(AppLocalizations.of(context)!.signUp),
                       ),
                     ],
@@ -166,7 +170,7 @@ class _SignInState extends State<SignIn> {
                 //   children: [
                 //     IconButton(
                 //       icon: const Icon(Icons.facebook, size: 40),
-                //       onPressed: facebookSignIn,
+                //       onPressed: facebookSignUp,
                 //     )
                 //   ],
                 // )

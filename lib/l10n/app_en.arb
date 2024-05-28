@@ -1,6 +1,9 @@
 {
   "email": "Email",
+  "emailTaken": "Email already taken",
   "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "passwordsDoNotMatch": "Passwords do not match",
   "signIn": "Sign In",
   "signUp": "Sign Up",
   "wrongCredentials": "Invalid email or password",
