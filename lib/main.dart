@@ -21,7 +21,6 @@ void main() async {
   final String id = await StorageService().load("id") ?? "";
   final String token = await StorageService().load("token") ?? "";
   UserService.instance.updateUser(id, token);
-  // StorageService().cleanAll();
   runApp(const MainApp());
 }
 
