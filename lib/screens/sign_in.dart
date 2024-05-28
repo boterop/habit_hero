@@ -54,6 +54,10 @@ class _SignInState extends State<SignIn> {
       });
     }
 
+    signUp() {
+      throw UnimplementedError();
+    }
+
     facebookSignIn() {
       throw UnimplementedError();
     }
@@ -120,13 +124,27 @@ class _SignInState extends State<SignIn> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 22.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        signIn(emailController, passwordController);
-                      }
-                    },
-                    child: Text(AppLocalizations.of(context)!.signIn),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            signIn(emailController, passwordController);
+                          }
+                        },
+                        child: Text(AppLocalizations.of(context)!.signIn),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          signUp();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ),
+                        child: Text(AppLocalizations.of(context)!.signUp),
+                      ),
+                    ],
                   ),
                 ),
                 // Padding(

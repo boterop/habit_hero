@@ -2,6 +2,7 @@
   "email": "Correo",
   "password": "Clave",
   "signIn": "Ingresar",
+  "signUp": "Registrarse",
   "wrongCredentials": "Las credenciales son incorrectas",
   "forgotPassword": "Olvidó su clave?",
   "orContinueWith": "O continúa con",

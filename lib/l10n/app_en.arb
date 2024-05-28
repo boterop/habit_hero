@@ -2,6 +2,7 @@
   "email": "Email",
   "password": "Password",
   "signIn": "Sign In",
+  "signUp": "Sign Up",
   "wrongCredentials": "Invalid email or password",
   "forgotPassword": "Forgot password?",
   "orContinueWith": "Or continue with",
