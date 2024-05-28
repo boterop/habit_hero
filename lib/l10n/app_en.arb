@@ -16,6 +16,7 @@
   "update": "Update",
   "cancel": "Cancel",
   "confirm": "Confirm",
+  "signInToContinue": "Sign in to continue",
   "enterValid": "Enter a valid {name, select, email{email} password{password} name{name} other{description}}",
   "@enterValid": {
     "placeholders": {

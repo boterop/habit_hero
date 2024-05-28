@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmDialog extends StatelessWidget {
-  final String name;
+  final String description;
   final Function onConfirm;
-  const ConfirmDialog({super.key, required this.name, required this.onConfirm});
-
-  void _onConfirm() => onConfirm();
-
-  void show(BuildContext context) => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => this,
-      );
+  const ConfirmDialog({
+    super.key,
+    required this.description,
+    required this.onConfirm,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +19,14 @@ class ConfirmDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(AppLocalizations.of(context)!.confirmDelete(name),
-                textAlign: TextAlign.center),
+            Text(description, textAlign: TextAlign.center),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextButton(
                   onPressed: () {
-                    _onConfirm();
+                    onConfirm();
                     Navigator.pop(context);
                   },
                   child: Text(AppLocalizations.of(context)!.confirm),

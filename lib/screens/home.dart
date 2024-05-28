@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habit_hero/screens/add_habit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:habit_hero/services/user_service.dart';
+import 'package:habit_hero/widgets/confirm_dialog.dart';
 
 class Home extends StatefulWidget {
   final List<Widget> habitsList;
@@ -14,6 +17,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     onAdd() {
+      if (UserService.instance.id == "") {
+        return showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => ConfirmDialog(
+              description: AppLocalizations.of(context)!.signInToContinue,
+              onConfirm: () {}),
+        );
+      }
+
       Navigator.push(
         context,
         PageRouteBuilder(
