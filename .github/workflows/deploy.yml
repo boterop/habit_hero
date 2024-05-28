@@ -12,17 +12,25 @@ jobs:
     env:
       RELEASE_FOLDER: build/app/outputs/bundle/release
       PACKAGE_NAME: io.boterop.habit_hero
+      JAVA_VERSION: 18
+      FLUTTER_VERSION: 3.19.6
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 1.8
         uses: actions/setup-java@v4
         with:
           distribution: "oracle"
-          java-version: 18
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Install dependency
-        run: yarn install
+        run: flutter packages get
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
