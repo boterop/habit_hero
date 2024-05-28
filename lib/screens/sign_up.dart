@@ -36,15 +36,16 @@ class _SignUpState extends State<SignUp> {
     }
 
     signUp() {
-      error = "";
       String email = emailController.text;
       String password = passwordController.text;
       APIService().signUp(email: email, password: password).then((response) {
         debugPrint(response.toString());
         switch (response) {
+          case {"errors": {"email": ["is not valid"]}}:
+            error = AppLocalizations.of(context)!.enterValid("email");
+            break;
           case {"errors": {"email": ["has already been taken"]}}:
             error = AppLocalizations.of(context)!.emailTaken;
-            formKey.currentState!.validate();
             break;
           case {"data": Map data}:
             String id = data["id"];
@@ -53,6 +54,7 @@ class _SignUpState extends State<SignUp> {
             Navigator.popUntil(context, (route) => route.isFirst);
             break;
         }
+        formKey.currentState!.validate();
       });
     }
 
@@ -81,7 +83,9 @@ class _SignUpState extends State<SignUp> {
                   padding: 25.0,
                   validator: (String? value) {
                     if (error.isNotEmpty) {
-                      return error;
+                      String message = error;
+                      error = "";
+                      return message;
                     }
                     if (value == null || value.isEmpty) {
                       return AppLocalizations.of(context)!.enterValid("email");
