@@ -3,10 +3,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final String name;
-  final Function onDelete;
-  const ConfirmDialog({super.key, required this.name, required this.onDelete});
+  final Function onConfirm;
+  const ConfirmDialog({super.key, required this.name, required this.onConfirm});
 
-  void _onDelete() => onDelete();
+  void _onConfirm() => onConfirm();
+
+  void show(BuildContext context) => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => this,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class ConfirmDialog extends StatelessWidget {
               children: <Widget>[
                 TextButton(
                   onPressed: () {
-                    _onDelete();
+                    _onConfirm();
                     Navigator.pop(context);
                   },
                   child: Text(AppLocalizations.of(context)!.confirm),
