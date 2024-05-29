@@ -58,7 +58,7 @@ class _CameraScreenState extends State<CameraScreen> {
             widget.onPictureTaken(image);
             Navigator.of(context).pop();
           } catch (e) {
-            print(e);
+            Navigator.of(context).pop();
           }
         },
         child: const Icon(Icons.camera_alt),

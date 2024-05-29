@@ -60,9 +60,9 @@ class _SignInState extends State<SignIn> {
           context, MaterialPageRoute(builder: (context) => const SignUp()));
     }
 
-    facebookSignIn() {
-      throw UnimplementedError();
-    }
+    // facebookSignIn() {
+    //   throw UnimplementedError();
+    // }
 
     return Scaffold(
       appBar: AppBar(),
