@@ -30,7 +30,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Install dependency
-        run: flutter packages get
+        run: flutter pub get
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -48,9 +48,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build
-        run: |
-          cd android
-          ./gradlew bundleRelease
+        run: flutter build appbundle --release
 
       - name: Sign Release
         uses: r0adkll/sign-android-release@v1
