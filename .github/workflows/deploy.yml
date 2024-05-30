@@ -47,6 +47,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Create .env file
+        run: |
+          echo "API_URL=${{secrets.API_URL}}
+          API_KEY=${{secrets.API_KEY}}
+          STORAGE_KEY=${{secrets.STORAGE_KEY}}
+          " >> .env
+
       - name: Build
         run: flutter build appbundle --release
 
