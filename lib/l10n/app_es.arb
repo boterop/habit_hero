@@ -1,0 +1,48 @@
+{
+  "email": "Correo",
+  "emailTaken": "Correo ya en uso",
+  "password": "Clave",
+  "confirmPassword": "Confirmar Clave",
+  "passwordsDoNotMatch": "Las contraseñas no coinciden",
+  "signIn": "Ingresar",
+  "signUp": "Registrarse",
+  "wrongCredentials": "Las credenciales son incorrectas",
+  "forgotPassword": "Olvidó su clave?",
+  "orContinueWith": "O continúa con",
+  "hard": "Difícil",
+  "medium": "Medio",
+  "easy": "Fácil",
+  "create": "Crear",
+  "name": "Nombre",
+  "description": "Descripción",
+  "endDate": "Fecha de finalización",
+  "notify": "Notificar",
+  "update": "Actualizar",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "signInToContinue": "Inicia sesión para continuar",
+  "enterValid": "Ingrese {name, select, email{un correo válido} password{una clave válida} name{un nombre válido} other{una descripción válida}}",
+  "@enterValid": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "makeIt": "Hazlo {name, select, obvious{obvio} attractive{atractivo} easy{fácil} other{satisfactorio}}",
+  "@makeIt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDelete": "¿Está seguro de que desea eliminar esto?\n({name})",
+  "@confirmDelete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
+}

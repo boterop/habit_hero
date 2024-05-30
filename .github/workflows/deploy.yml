@@ -1,0 +1,77 @@
+name: Deploy to Playstore
+
+on:
+  workflow_run:
+    workflows: ["Release new version"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_FOLDER: build/app/outputs/bundle/release
+      PACKAGE_NAME: io.boterop.habit_hero
+      JAVA_VERSION: 18
+      FLUTTER_VERSION: 3.19.6
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v4
+        with:
+          distribution: "oracle"
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.19.6
+
+      - name: Install dependency
+        run: flutter packages get
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build
+        run: flutter build appbundle
+
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: ${{env.RELEASE_FOLDER}}
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Create service_account.json
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+
+      - name: Deploy to Production
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: service_account.json
+          packageName: ${{env.PACKAGE_NAME}}
+          releaseFiles: ${{env.RELEASE_FOLDER}}/app-release.aab
+          track: production
+          whatsNewDirectory: distribution/

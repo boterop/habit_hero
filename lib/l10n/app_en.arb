@@ -1,0 +1,48 @@
+{
+  "email": "Email",
+  "emailTaken": "Email already taken",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "wrongCredentials": "Invalid email or password",
+  "forgotPassword": "Forgot password?",
+  "orContinueWith": "Or continue with",
+  "hard": "Hard",
+  "medium": "Medium",
+  "easy": "Easy",
+  "create": "Create",
+  "name": "Name",
+  "description": "Description",
+  "endDate": "End date",
+  "notify": "Notify",
+  "update": "Update",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "signInToContinue": "Sign in to continue",
+  "enterValid": "Enter a valid {name, select, email{email} password{password} name{name} other{description}}",
+  "@enterValid": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "makeIt": "Make it {name, select, obvious{obvious} attractive{attractive} easy{easy} other{satisfying}}",
+  "@makeIt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDelete": "Are you sure you want to delete this?\n({name})",
+  "@confirmDelete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
+}
